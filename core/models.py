@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_lifecycle import LifecycleModel
 
+from ninja_jwt.tokens import RefreshToken as SimpleJWTRefreshToken
+
 
 
 class _BaseModel(models.Manager):
@@ -31,3 +33,14 @@ class BaseModel(LifecycleModel):
         abstract = True
         ordering = ["-date_created"]
 
+
+class RefreshToken(SimpleJWTRefreshToken):
+    @classmethod
+    def for_user(cls, user):
+        token = super().for_user(user)
+        # Add custom claims
+        token["user_id"] = str(user.id) # type: ignore
+        token["user_email"] = user.email # type: ignore
+        token["user_username"] = user.username # type: ignore
+        token["user_fullname"] = user.get_full_name() # type: ignore
+        return token

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  
+  kopmall_web:
+    build: .
+    restart: always
+    container_name: kopmall
+    command: gunicorn kopmall.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/usr/src/app/
+    env_file:
+      - ./.env.docker
+
+  postgres:
+    restart: always
+    image: postgres:14
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.docker
+  
+
+volumes:
+  kopmall_data:
+  postgres_data:
