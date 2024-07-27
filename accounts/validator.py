@@ -7,7 +7,6 @@ def validate_password(password):
     message = "password should contain uppercase, lowercase, numbers and symbols"
     
     if len(password) < 8:
-        print("over")
         raise ValueError("password should not be less than 8")
     
     if not re.search(r'[A-Z]', password):

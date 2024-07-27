@@ -51,6 +51,27 @@ class MyTokenObtainPairInputSchema(TokenObtainInputSchemaBase):
     def get_token(cls, user) -> Dict:
         return get_tokens(user)  # type: ignore
 
+class GetOTPInSchema(Schema):
+    email: EmailStr
+
+class VerifyOTPOutSchema(Schema):
+    email: EmailStr
+    otp: str
+
+class ResetPasswordInSchema(Schema):
+    email: EmailStr
+    password: str
+    confirm_password: str
+
+    _validate_password = field_validator("password")(validate_password)
+
+class SUCCESS_200OUTSCHEMA(Schema):
+    message: str
+class SUCCESS_201OUTSCHEMA(Schema):
+    message: str
 
 class ERROR_403OUTSCHEMA(Schema):
     error: str
+
+class NOTFOUND_404OUTSCHEMA(Schema):
+    message: str

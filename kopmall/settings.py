@@ -133,6 +133,9 @@ if MODE == 'local':
 
     MEDIA_URL = 'uploads/'
     MEDIA_ROOT = BASE_DIR / 'media'
+
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 else:
     AWS_QUERYSTRING_AUTH = False
     AWS_ACCESS_KEY_ID = config("DIGITAL_SPACE_ACCESS_TOKEN")
