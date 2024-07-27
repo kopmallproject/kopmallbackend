@@ -3,6 +3,7 @@ asgiref==3.8.1
 cffi==1.16.0
 contextlib2==21.6.0
 cryptography==42.0.8
+dj-database-url==2.2.0
 Django==5.0.7
 django-lifecycle==1.2.4
 django-ninja==1.2.1
