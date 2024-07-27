@@ -4,6 +4,8 @@ from datetime import timedelta
 
 from decouple import config, Csv
 
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,17 +76,21 @@ AUTH_USER_MODEL = "accounts.User"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("NAME"),
-        "HOST": config("HOST"),
-        "USER": config("USER"), 
-        "PASSWORD": config("PASSWORD"), 
-        "PORT": config("PORT", cast=int),
-    },
-}
+MODE = config("MODE", cast=str)
 
+if MODE == "local":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": config("NAME"),
+            "HOST": config("HOST"),
+            "USER": config("USER"), 
+            "PASSWORD": config("PASSWORD"), 
+            "PORT": config("PORT", cast=int),
+        },
+    }
+else:
+    DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -120,7 +126,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+if MODE == 'local':
+    STATIC_URL = 'static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+    MEDIA_URL = 'uploads/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+else:
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = config("DIGITAL_SPACE_ACCESS_TOKEN")
+    AWS_SECRET_ACCESS_KEY = config("DIGITAL_SPACE_SECRET_TOKEN")
+    AWS_STORAGE_BUCKET_NAME = config("BUCKET_NAME")
+    AWS_S3_ENDPOINT_URL = config("DIGITAL_SPACE_ENDPOINT_URL")
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_LOCATION = config("LOCATION")
+    DEFAULT_FILE_STORAGE = "optimavizapp.backends.MediaRootS3BotoStorage"
+    STATICFILES_STORAGE = "optimavizapp.backends.StaticRootS3BotoStorage"
+
+    STATIC_URL = "https://{}/{}/".format(AWS_S3_ENDPOINT_URL, "static")
+    MEDIA_URL = "https://{}/{}/".format(AWS_S3_ENDPOINT_URL, "media")
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
