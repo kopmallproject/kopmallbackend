@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # third party libs
     'django_lifecycle_checks',
+    'storages'
 ]
 
 MIDDLEWARE = [
