@@ -86,7 +86,7 @@ if MODE == "local":
             "NAME": config("NAME"),
             "HOST": config("HOST"),
             "USER": config("USER"), 
-            "PASSWORD": config("PASSWORD"), 
+            "PASSWORD": config("PASSWORD"),
             "PORT": config("PORT", cast=int),
         },
     }
@@ -142,8 +142,8 @@ else:
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
     AWS_DEFAULT_ACL = "public-read"
     AWS_LOCATION = config("LOCATION")
-    DEFAULT_FILE_STORAGE = "optimavizapp.backends.MediaRootS3BotoStorage"
-    STATICFILES_STORAGE = "optimavizapp.backends.StaticRootS3BotoStorage"
+    DEFAULT_FILE_STORAGE = "kopmall.backends.MediaRootS3BotoStorage"
+    STATICFILES_STORAGE = "kopmall.backends.StaticRootS3BotoStorage"
 
     STATIC_URL = "https://{}/{}/".format(AWS_S3_ENDPOINT_URL, "static")
     MEDIA_URL = "https://{}/{}/".format(AWS_S3_ENDPOINT_URL, "media")
