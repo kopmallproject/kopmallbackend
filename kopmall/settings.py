@@ -40,12 +40,14 @@ INSTALLED_APPS = [
 
     # third party libs
     'django_lifecycle_checks',
-    'storages'
+    'storages',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -153,7 +155,7 @@ else:
     MEDIA_URL = "https://{}/{}/".format(AWS_S3_ENDPOINT_URL, "media")
     STATIC_ROOT = BASE_DIR / "staticfiles"
 
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
