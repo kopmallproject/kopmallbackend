@@ -8,16 +8,19 @@ from pydantic import EmailStr
 
 from accounts.models import OTP, User
 from accounts.schema import (
-    ERROR_403OUTSCHEMA,
-    NOTFOUND_404OUTSCHEMA,
-    SUCCESS_200OUTSCHEMA,
-    SUCCESS_201OUTSCHEMA,
     CreateUserOutSchema,
     GetOTPInSchema,
     ResetPasswordInSchema,
     UserInSchema,
     UserOutSchema,
     VerifyOTPOutSchema,
+)
+
+from core.schema import(
+    ERROR_403OUTSCHEMA,
+    NOTFOUND_404OUTSCHEMA,
+    SUCCESS_200OUTSCHEMA,
+    SUCCESS_201OUTSCHEMA,
 )
 
 router = Router(auth=JWTAuth())

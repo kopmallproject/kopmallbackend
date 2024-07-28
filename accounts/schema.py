@@ -41,7 +41,6 @@ class MyTokenObtainPairOutSchema(Schema):
     refresh: str
     access: str
 
-
 class MyTokenObtainPairInputSchema(TokenObtainInputSchemaBase):
     @classmethod
     def get_response_schema(cls) -> Type[Schema]:
@@ -64,14 +63,3 @@ class ResetPasswordInSchema(Schema):
     confirm_password: str
 
     _validate_password = field_validator("password")(validate_password)
-
-class SUCCESS_200OUTSCHEMA(Schema):
-    message: str
-class SUCCESS_201OUTSCHEMA(Schema):
-    message: str
-
-class ERROR_403OUTSCHEMA(Schema):
-    error: str
-
-class NOTFOUND_404OUTSCHEMA(Schema):
-    message: str
