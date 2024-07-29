@@ -27,6 +27,7 @@ class ProductOutSchema(ModelSchema):
     class Meta:
         model = Product
         fields = [
+            "id",
             "category",
             "name",
             "overview",
@@ -41,4 +42,4 @@ class ProductOutSchema(ModelSchema):
 class ProductImageOutSchema(ModelSchema):
     class Meta:
         model = ProductImage
-        fields = ["image"]
+        fields = ["id","image"]
