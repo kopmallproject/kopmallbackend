@@ -4,6 +4,9 @@ class SUCCESS_200OUTSCHEMA(Schema):
     message: str
 
 
+class SUCCESS_204OUTSCHEMA(Schema):
+    message: str
+
 class SUCCESS_201OUTSCHEMA(Schema):
     message: str
 

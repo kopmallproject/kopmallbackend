@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 
 from core.schema import NOTFOUND_404OUTSCHEMA
-from stores.models import Category, Product, ProductImage
-from stores.schema import (
+from stores.models.store_model import Category, Product, ProductImage
+from stores.schemas.store_schema import (
     CategoryOutSchema,
     ProductFilterSchema,
     ProductImageOutSchema,

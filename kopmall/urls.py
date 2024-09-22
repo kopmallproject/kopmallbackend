@@ -10,13 +10,17 @@ from ninja_jwt.routers.obtain import obtain_pair_router
 from ninja_extra import exceptions
 
 from accounts.api import router as accounts_router
-from stores.api import router as stores_router
+from stores.apis.store_api import router as store_router
+from stores.apis.cart_api import router as cart_router
+from stores.apis.order_api import router as order_router
 
 
 api = NinjaAPI(docs=Swagger())
 
 api.add_router("/users/", accounts_router)
-api.add_router("/stores/", stores_router)
+api.add_router("/stores/", store_router)
+api.add_router("/carts/", cart_router)
+api.add_router("/orders/", order_router)
 api.add_router("/token", tags=["Auth"], router=obtain_pair_router)
 
 urlpatterns = [path("admin/", admin.site.urls), path("api/", api.urls)]

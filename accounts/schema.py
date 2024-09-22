@@ -6,7 +6,7 @@ from ninja_jwt.schema import TokenObtainInputSchemaBase
 from pydantic import EmailStr, field_validator
 
 from accounts.validator import validate_password, validate_email
-from accounts.models import User
+from accounts.models import Address, User
 from core.helpers import get_tokens
 
 
@@ -63,3 +63,9 @@ class ResetPasswordInSchema(Schema):
     confirm_password: str
 
     _validate_password = field_validator("password")(validate_password)
+
+
+class AddressOutSchema(ModelSchema):
+    class Meta:
+        model = Address
+        fields = "__all__"

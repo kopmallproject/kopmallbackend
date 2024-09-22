@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from accounts.forms import UserAdminChangeForm, UserAdminCreationForm
-from accounts.models import OTP
+from accounts.models import OTP, Address
 
 User = get_user_model()
 
@@ -79,3 +79,5 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(OTP)
+admin.site.register(Address)
+

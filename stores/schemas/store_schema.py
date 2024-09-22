@@ -1,7 +1,7 @@
-from typing import List, Optional
+from typing import Optional
 from ninja import ModelSchema, FilterSchema, Field
 
-from stores.models import Category, Product, ProductImage, SubCategory
+from stores.models.store_model import Category, Product, ProductImage, SubCategory
 
 
 class CategoryOutSchema(ModelSchema):
@@ -35,6 +35,7 @@ class ProductOutSchema(ModelSchema):
             "warranty",
             "image",
             "amount",
+            "available_quantity",
             "is_available",
         ]
 

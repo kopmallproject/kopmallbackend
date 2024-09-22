@@ -73,6 +73,8 @@ class Product(BaseModel):
         verbose_name=_("Product Amount"), max_digits=10, decimal_places=2
     )
 
+    available_quantity = models.SmallIntegerField(verbose_name=_("Total quantity Available"), default=1)
+    
     is_available = models.BooleanField(
         verbose_name=_("Product Available"), default=True
     )
